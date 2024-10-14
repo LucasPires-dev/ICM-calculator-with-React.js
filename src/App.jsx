@@ -66,7 +66,7 @@ function App() {
 
   const getIMC = ( ) => {
     
-    return parseFloat(IMC).toFixed(2)
+    return <div className='imc-value'>{parseFloat(IMC).toFixed(2)}</div>
 
     
   }
@@ -116,7 +116,7 @@ function App() {
             </div>
             <button type="submit">Calcular IMC</button>
         </form>
-        <div id="resultado" className="resultado"><div className='imc-value'>{resultadoValido? getIMC(): ''}</div><ul className='classificacao'>{resultadoValido? showTabela(): ''}</ul></div>
+        <div id="resultado" className="resultado">{resultadoValido? getIMC(): ''}<ul className='classificacao'>{resultadoValido? showTabela(): ''}</ul></div>
     </div>
   )
 }
