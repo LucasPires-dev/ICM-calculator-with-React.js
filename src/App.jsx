@@ -8,6 +8,27 @@ function App() {
   const [peso, setPeso] = useState([]);
   const [IMC, setIMC] = useState('')
 
+  const isMagro = {
+    'titulo': 'Magreza',
+    'is': false
+  };
+  const isSaudavel = {
+    'titulo': 'Normal',
+    'is': false
+  };
+  const isSobrePeso = {
+    'titulo': 'Sobrepeso',
+    'is': false
+  };
+  const isObeso = {
+    'titulo': 'Obsidade',
+    'is': false
+  };
+  const isGravementeObeso = {
+    'titulo': 'Obsidade Grave',
+    'is': false
+  };
+
   const alterarAltura = (evento) => {
     const valor = evento.target.value;
 
@@ -50,6 +71,37 @@ function App() {
     
   }
 
+  const showTabela = () => {
+  
+      if (IMC < 18.5){
+          isMagro.is = true;
+      }else if(IMC > 18.5 && IMC < 24.99) {
+        isSaudavel.is = true;
+      }else if( IMC > 25 && IMC < 29.99){
+        isSobrePeso.is = true;
+      }
+       
+      else if( IMC > 30 && IMC < 39.99){
+        isObeso.is = true;
+      }
+  
+      else if( IMC > 40.00){
+        isGravementeObeso.is = true;
+    }
+
+    const listaClasificacaoIMC = [isMagro, isSaudavel, isSobrePeso, isObeso, isGravementeObeso]
+
+    const resultado = listaClasificacaoIMC.map(item => {
+      if(item.is){
+        return <li className='active'>{item.titulo}</li>
+      }else{
+        return <li>{item.titulo}</li>
+      }
+    })
+    console.log(resultado)
+    return resultado
+  
+  }
   return (
     <div className="container">
         <h1>Cálculo de IMC</h1>
@@ -64,7 +116,7 @@ function App() {
             </div>
             <button type="submit">Calcular IMC</button>
         </form>
-        <div id="resultado" className="resultado">{resultadoValido? getIMC(): ''}</div>
+        <div id="resultado" className="resultado"><div className='imc-value'>{resultadoValido? getIMC(): ''}</div><ul className='classificacao'>{resultadoValido? showTabela(): ''}</ul></div>
     </div>
   )
 }
